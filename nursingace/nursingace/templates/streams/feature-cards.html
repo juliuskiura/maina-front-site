@@ -1,0 +1,17 @@
+{% for card in self.cards %}
+<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+   <div class="services__inner services__inner-2 hover__active mb-30">
+      <div class="services__item-2 transition-3 white-bg ">
+         <div class="icon">
+            <i class="fa-solid fa-{{card.fontawesome}}"></i>
+         </div>
+         <div class="services__content-2">
+            <h3 class="text-center">{{card.headline}}</h3>
+            <p>{{card.description}}</p>    
+         </div>
+      </div>
+   </div>
+</div>
+
+ 
+{% endfor %}

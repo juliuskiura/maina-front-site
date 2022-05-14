@@ -1,0 +1,20 @@
+
+
+ {% for latest_post in latest_posts %}
+
+  <li class="d-flex align-items-center mb-30">
+    <div class="rc__thumb mr-30">
+      {% if latest_post.image %}
+       <a href="{{ latest_post.get_absolute_url }}">
+          <img src="{{ latest_post.get_image }}" alt="{{ latest_post.get_image_alt }}">
+       </a>
+       {% endif %}
+    </div>
+    <div class="rc__content">
+       <div class="rc__meta">
+          <span>{{latest_post.publish|date:"D d M Y" }}</span>
+       </div>
+       <h3 class="rc__title"><a href="{{ latest_post.get_absolute_url }}">{{latest_post.title }}</a></h3>
+    </div>
+ </li>
+ {% endfor %}

@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+ {% load  static wagtailcore_tags wagtailmetadata_tags  wagtailimages_tags blog_tags %}
+
+ {% block meta_tag %}
+   {% meta_tags %}
+ {% endblock %}
+
+ {% block content %}
+
+      <main>
+
+        <!-- page title area start -->
+        <section class="page__title-area page__title-height d-flex align-items-center fix p-relative z-index-1" data-background="{% static 'images/page-title/page-title.jpg' %}">     
+           <div class="container">
+              <div class="row">
+                 <div class="col-xxl-12">
+                    <div class="page__title-wrapper text-center">
+                       <h3> Resources and Samples </h3>
+                        <nav aria-label="breadcrumb">
+                           <ol class="breadcrumb justify-content-center">
+                              <li class="breadcrumb-item"><a href="/">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Resources</li>
+                           </ol>
+                        </nav>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </section>
+        <!-- page title area end -->
+
+
+        <!-- blog area start -->
+        <section class="blog__area pt-120 pb-120">
+        
+           <div class="container">
+            <div class="row">
+               <div class="col-lg-8 col-md-12">
+           {% if query %}
+           <h1>Posts containing "{{ query }}"</h1>
+           <h3 class="text-primary">
+           {% with results.count as total_results %}
+           Found {{ total_results }} result{{ total_results|pluralize }}
+           {% endwith %}
+           </h3>
+           
+                         
+        {% endif %}     
+        
+       </div>
+       </div>
+              <div class="row">
+                 <div class="col-xxl-8 col-xl-8 col-lg-8">
+                    <div class="blog__wrapper">
+
+                     {% for post in articles %}
+                     
+                       <div class="postbox__item mb-70 wow fadeInUp" data-wow-delay=".3s">
+                          
+                          <div class="postbox__thumb w-img">
+                         
+                             <a href="{{post.get_absolute_url }}">
+                              {% if post.question_image %}
+                              {% image post.question_image original as img %} 
+                              <img src="{{ img.url }}" class="wow fadeInDown" alt="{{ img.alt }}"> </a>
+                          
+
+                             <div class="postbox__meta">
+                                <div class="postbox__date">
+                           
+                                   <h5>{{post.first_published_at|date:"d"}}</h5>
+                                    <span>{{post.first_published_at|date:"M"}}.</span>
+                                </div>
+                             </div>
+                          </div>
+                          {% endif %}
+                          <div class="postbox__content">
+                             <div class="postbox__meta mb-20">
+                              <span><a href="#">{{ post.category }}</a></span>
+                                <span><a href="#">{{post.publish|date:"D d M Y"}}</a></span>                             
+                                {% if not post.post_author == None %}
+                               
+                                <span><a href="#"> <i class="fal fa-user"></i>By {{post.post_author}}</a></span>
+                            {% endif %}
+                           
+                           
+                                
+                             </div>
+                             <h2 class="postbox__title"><a href="{{post.get_absolute_url }}">{{post.title }}</a></h2>
+                             <h3 class="postbox__title fs-5 text"><a href="{{post.get_absolute_url }}"><i>{{post.sample_question|clean_block|safe|truncatechars:150 }}</i></a></h3>
+                             {{ post.sample_answer|clean_block|safe|truncatechars:100 }}
+                             <a href="{{post.url }}" class="w-btn w-btn-blue"> Read More</a>
+                          </div>
+                       </div>
+                       {% endfor %}
+
+
+
+                       {% include "resources/pagination.html" with page=articles %}
+                   
+                     
+                    </div>
+                 </div>
+                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-8">
+                    <div class="blog__sidebar pl-30">
+                       <div class="sidebar__widget mb-60 wow fadeInUp" data-wow-delay=".3s">
+                          <div class="sidebar__search">
+                             <form action="#" action=" " method="GET">
+                                <input type="search" name="query" placeholder="Search...">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                             </form>
+                        
+                          </div>
+                       </div>
+                       <div class="sidebar__widget mb-60 wow fadeInUp" data-wow-delay=".5s">
+                          <div class="sidebar__widget-head">
+                             <h3 class="sidebar__widget-title">Categories</h3>
+                          </div>
+                          <div class="sidebar__widget-body">
+                             <div class="sidebar__category">
+                                <ul>
+                                 {% for category in categories %}
+                                 {% if category.category__title %}
+                                     
+                                     <li><a href="{% url 'post_by_category' category.category__slug %} ">{{ category.category__title }}</a></li>
+                                     {% endif %}
+                                     {% endfor %}
+                                 
+                                </ul>
+                             </div>
+                          </div>
+                       </div>
+                       <div class="sidebar__widget mb-60 wow fadeInUp" data-wow-delay=".7s">
+                          <div class="sidebar__widget-head">
+                             <h3 class="sidebar__widget-title">Recent Solutions</h3>
+                          </div>
+                          <div class="sidebar__widget-body">
+                             <div class="rc__post">
+                                <ul>
+                                 
+                                   {% show_latest_posts %}
+                              
+                                </ul>
+                             </div>
+                          </div>
+                       </div>
+                       
+               
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </section>
+        <!-- blog area end -->
+        {% include 'home/cta-section.html' %} 
+      </main>
+
+      {% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+ {% block content %}
+
+
+      <main>
+
+         <!-- page title area start -->
+         <section class="page__title-area page__title-height d-flex align-items-center fix p-relative z-index-1" data-background="{% static 'images/page-title/page-title.jpg' %}">
+   
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-12">
+                     <div class="page__title-wrapper text-center">
+                        <h3>{{self.title}}</h3>
+                           <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb justify-content-center">
+                                 <li class="breadcrumb-item"><a href="/">{{self.get_parent.title}}</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">{{self.title}}</li>
+                              </ol>
+                           </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- page title area end -->
+
+          <!-- contact area start  -->
+        
+          <section class="privacy-block contact__area pt-150 pb-150 p-relative z-index-1">
+             <div class="container">
+                <div class="row">
+                   <div class="col-xxl-12 col-xl-12 col-lg-12">
+                      {% for block in self.policy_body %}
+                      {{block}}
+                      {% endfor %}
+                   </div>
+                </div>
+             </div>
+          </section>
+          <!-- contact area end  -->
+          {% include 'home/cta-section.html' %}
+      </main>
+      {% endblock %}

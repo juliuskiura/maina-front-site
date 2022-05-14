@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+wagtail = "*"
+psycopg2-binary = "*"
+django-debug-toolbar = "*"
+requests = "*"
+wagtail-metadata = "*"
+wagtailfontawesome = "*"
+django-autoslug = "*"
+django-ckeditor = "*"
+djangorestframework = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+ {% block content %}
+
+
+      <main>
+
+         <!-- page title area start -->
+         <section class="page__title-area page__title-height d-flex align-items-center fix p-relative z-index-1" data-background="{% static 'images/page-title/page-title.jpg' %}">
+   
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-12">
+                     <div class="page__title-wrapper text-center">
+                        <h3>Contact </h3>
+                           <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb justify-content-center">
+                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                              </ol>
+                           </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- page title area end -->
+
+          <!-- contact area start  -->
+        
+          <section class="contact__area pb-150 p-relative z-index-1">
+             <div class="container">
+                <div class="row">
+                   <div class="col-xxl-12 col-xl-12 col-lg-12">
+                      <div class="contact__wrapper white-bg mt--70 p-relative z-index-1 wow fadeInUp" data-wow-delay=".3s">
+                         <div class="row">
+                          
+                           {% if messages %}
+                           <ul class="messages">
+                               {% for message in messages %}
+                               <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                 <strong>{{ message }}</strong> 
+                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                               </div>
+                      
+                               {% endfor %}
+                           </ul>
+                           {% endif %}
+                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                               <div class="contact__info pr-80">
+                                  <h3 class="contact__title">Let's talk</h3>
+      
+                                  <div class="contact__details">
+                                     <ul>
+                                        <li>
+                                           <h4>Our Location</h4>
+                                           <p>{{site_manager.address}},<br> {{site_manager.location}}</p>
+                                        </li>
+                                        <li>
+                                           <h4>Email Adress</h4>
+                                           <p><a href="mailto:admin@thenursingace.com"><span class="__cf_email__" data-cfemail="52212722223d20263637213912353f333b3e7c313d3f">admin@thenursingace.com</span></a></p>                                       
+                                        </li>
+                                        <li>
+                                           <h4>Hotline Number</h4>
+                                           <p><a href="tel:+254763828734">+ (254) 763 828 734</a></p>
+                                  
+                                        </li>
+                                     </ul>
+                                  </div>
+                               </div>
+                            </div>
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                               <div class="contact__form">
+                                
+                               
+                                  <form class="row g-3" action="" method="POST">
+                                    {% csrf_token %}
+                                    <div class="col-md-6">
+                                       <label for="id_first_name" class="form-label">First name:</label>
+                                      <input type="text" class="form-control" name="first_name" maxlength="100" required="" id="id_first_name">
+                                    </div>
+                                    <div class="col-md-6">
+                                       <label for="id_last_name" class="form-label">Last name:</label>
+                                      <input type="text" class="form-control" name="last_name" maxlength="100" required="" id="id_last_name">
+                                    </div>
+                                   
+                                    <div class="col-md-12">                                   
+                                      <label for="id_e_mail" class="form-label">Email:</label>
+                                      <input type="email" class="form-control" name="e_mail" maxlength="100" required="" id="id_e_mail">
+                                    </div>
+                                   
+                                    <div class="col-12">
+                                       <label for="id_phone_number">Phone number:</label>
+                                      <input type="text" class="form-control" name="phone_number" maxlength="13" id="id_phone_number">
+                                    </div>
+                                    <div class="col-12">
+                                      <label for="id_business">Business:</label>
+                                      <input type="text" name="business" class="form-control" maxlength="100" required="" id="id_business">
+                                    </div>
+                                    <div class="col-md-12">
+                                       <label for="id_message"  class="form-label">Message:</label>
+                                     
+                                      <textarea name="message" cols="40" class="form-control" rows="10" required="" id="id_message" spellcheck="false"></textarea>
+                                    </div>
+                                  
+                                    <div class="col-12">
+                                      <button type="submit" class="w-btn w-btn-blue-5 w-btn-6 w-btn-14">Send Massage</button>
+                                    </div>
+                                  </form>
+                              
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </section>
+          <!-- contact area end  -->
+          {% include 'home/cta-section.html' %}
+      </main>
+      {% endblock %}

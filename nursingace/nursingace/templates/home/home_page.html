@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+ {% load  static wagtailcore_tags wagtailmetadata_tags  wagtailimages_tags %}
+
+ {% block meta_tag %}
+   {% meta_tags %}
+ {% endblock %}
+
+ {% block content %}
+
+      <main>
+         
+
+         <!-- hero area start -->
+         <section class="hero__area grey-bg-9 p-relative d-flex mt-100">
+          
+            <div class="container">
+               <div class="row align-items-center">
+                  <div class="col-xxl-7 col-xl-7 col-lg-6">
+                     <div class="hero__content-4 pr-70">
+                        
+                        <h1 class="hero__title-4 wow fadeInUp" data-wow-delay=".3s">{{page.banner_title }}</h1>
+                        <p class="wow fadeInUp" data-wow-delay=".5s">{{page.banner_description }}</p>
+
+                        <div class="hero__btn-4">
+                           <a href="#" class="w-btn-round mr-25 wow fadeInUp" data-wow-delay=".9s">How it Works</a>
+                           <a href="contact/" class="w-btn-round w-btn-round-2 wow fadeInUp" data-wow-delay="1.2s">Request Sample</a>
+                        </div>
+
+                     </div>
+                  </div>
+                  <div class="col-xxl-4 col-xl-4 col-lg-4 col-sm-8 product-side">
+                     <div class="hero__thumb-4-wrapper">
+                        <div class="mt--70 p-relative z-index-1 wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                           <div class="row">
+                              <div class="contact__form assignment-products">
+                                 <h5 class="text-center mt-4 wow fadeInUp" data-wow-delay=".3s">Estimate Your Costs</h5>
+                              <form class="row g-3 product-query" method="POST"  action="">
+                                 {% csrf_token  %}
+                              
+                                 <div class="col-md-6 price_val">
+                                       <label for="college" class="form-label">Degree</label>
+                                       
+                                        
+                                       <select name="study_level" class="form-select price_form" required="" id="id_study_level">
+                                          <option value="" selected="">----Choose</option>
+                                          {% for level in study_level %}
+                                          <option value="{{level.id}}">{{level.title}}</option>
+                                          {% endfor %}
+                                        </select>                    
+                                 </div>
+                           
+                                 <div class="col-md-6 price_val">
+                                       <label for="service_category" class="form-label">Service</label>
+                                       <select name="service_category" class="form-select price_form" required="" id="id_service_category">
+                                          <option value="" selected="">----Choose</option>
+                                          {% for cat in service_category %}
+                                          <option value="{{cat.id}}">{{cat.title}}</option>
+                                          {% endfor %}
+                                        </select>                             
+                                 </div>
+                                 <div class="col-md-12 price_val">
+                                       <label for="turnaround" class="form-label">Assignment Type</label>
+                                       <select name="assignment_type" class="form-select price_form" required="" id="id_assignment_type">
+                                          <option value="" selected="">----Choose</option>
+                                          {% for cat in service_category %}
+                                          <option value="{{cat.id}}">{{cat.title}}</option>
+                                          {% endfor %}
+                                        </select> 
+                                 </div>
+                                 <div class="col-md-6 price_val">
+                                       <label for="turnaround" class="form-label">Deadline</label>
+                                       <select name="turnaround" class="form-select price_form" required="" id="id_turnaround">
+                                          <option value="" selected="">----Choose</option>
+                                          {% for item in turnaround %}
+                                          <option value="{{item.id}}">{{item.turnaround_time}}</option>
+                                          {% endfor %}
+                                        </select> 
+                                 </div>
+                                 <div class="col-md-6 price_val">
+                                    <label for="inputAddress" class="form-label">No of Pages</label>
+                                   <input type="text" class="form-control price_form" name="numpages" id="id_numpages" placeholder="2">
+                                 </div>                           
+                             
+                                 <div class="col-md-12">
+                                   <button type="submit" class="w-btn-round mr-25 wow fadeInUp" data-wow-delay=".9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeInUp;" id="calculate-estimate">Calculate</button>
+                                 </div>
+                                 <div class="col-md-12  total_am">                                
+                                 </div>
+                                 <div class="col-md-12 d-none" id="order_btn">
+                                    <a href="https://appnursing.cannyva.com/assignments/create/" class="w-btn-round btn-sm mr-25">Order Now</a>
+                                 </div>
+                               </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- hero area end -->
+     
+         <!-- About Area start -->
+         <section class="price__area grey-bg pt-105 pb-90">
+            <div class="container">
+               <div class="row">
+                  {% for block in page.jumbo_area %}
+                     {% include_block block %}
+                     {% endfor %}
+                
+                  
+               </div>
+               
+            </div>
+         </section>
+         <section class="features__area pb-120 p-relative">
+            
+            <div class="container">
+               {% for block in page.section_about %}
+                     {% include_block block %}
+                     {% endfor %}
+               <div class="row align-items-center">
+                  <div class="col-xl-7 col-lg-7">
+                     <div class="promotion__content-4 mb-90">
+                        <div class="section__title-wrapper section__title-wrapper-4  mb-30 wow fadeInUp" data-wow-delay=".3s">             
+                           {{ self.section_about_content }}
+                        </div>
+                        
+                        <div class="hero__features d-sm-flex mb-25 wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                           <div class="hero__features-item ">
+                              <ul>
+                                 {% for bullet in self.about_bullet %}
+                                 <li>{{bullet}}</li>
+                                 {% endfor %}                                 
+                              </ul>
+                           </div>
+                           
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <div class="col-xxl-5 col-xl-5 col-lg-5 sect_about_img">
+                     <div class="promotion__thumb-4 p-relative">
+                        {% image self.section_about_image scale-50 as img %}
+                        <img src="{{ img.url }}" class="wow fadeInDown" alt="{{ img.alt }}">
+                        
+                     </div>
+                  </div>
+               </div>
+
+
+            </div>
+  
+         </section>
+         
+            
+         <!-- About Area Ends-->   
+
+         <section class="{{ core_section.section_name}} services__area pb-110">
+            <div class="container">
+               <div class="row">
+   
+                  {% for block in page.core_features %}
+                  {% include_block block %}
+                  {% endfor %}
+               </div>
+
+               <div class="row">
+                  {% for block in  self.core_features_cards %}                 
+                  {% include_block block %}
+                  {% endfor %}
+
+               </div>
+            </div>
+         </section>
+
+         
+                  <!-- services area start -->
+       
+         <section class="{{ citation_style.section_name}} services__area pt-90 pb-110">
+            <div class="container">
+               <div class="row">
+                  {% for block in self.citation_hub %}
+                  {% include_block block %}
+                  {% endfor %}
+               </div>
+               </div>
+            </div>
+         </section>
+         <!-- services area end -->
+     
+
+         {% for block in self.citation_styles %}
+   
+         {% if forloop.counter|divisibleby:2 %}
+         <section class="about__area pb-120 p-relative">            
+            <div class="container">              
+               <div class="row align-items-center d-flex">
+                   <!-- start image div -->
+                  <div class="col-xxl-5 col-xl-6 col-lg-6 col-md-9 order-1">
+                     <div class="about__thumb-wrapper p-relative ml-40 fix text-end">
+                        {% image block.value.image scale-100 as img %}              
+                        <img src="{{ img.url }}" class="wow fadeInDown" alt="{{ img.alt }}">
+                        
+                     </div>
+                  </div>
+                  <!-- end image div -->
+                  <!-- start text div -->
+                  <div class="col-xxl-6 offset-xxl-1 col-xl-6 col-lg-6 col-md-10 order-2">
+                     <div class="about__wrapper mb-10">
+                        <div class="section__title-wrapper mb-25">
+                           <h2 class="section__title">{{block.value.headline}}</h2>
+                        </div>
+                        {{block.value.description}}
+                     </div>
+                  </div>
+                   <!-- end text div -->
+               </div>
+            </div>            
+         </section>
+         {% else %}
+         <section class="about__area pb-120 p-relative">            
+            <div class="container">              
+               <div class="row align-items-center d-flex">
+                   <!-- start image div -->
+                  <div class="col-xxl-5 col-xl-6 col-lg-6 col-md-9 order-2">
+                     <div class="about__thumb-wrapper p-relative ml-40 fix text-end">
+                        {% image block.value.image scale-100 as img %}              
+                        <img src="{{ img.url }}" class="wow fadeInDown" alt="{{ img.alt }}">
+                        
+                     </div>
+                  </div>
+                  <!-- end image div -->
+                  <!-- start text div -->
+                  <div class="col-xxl-6 offset-xxl-1 col-xl-6 col-lg-6 col-md-10 order-1">
+                     <div class="about__wrapper mb-10">
+                        <div class="section__title-wrapper mb-25">
+                           <h2 class="section__title">{{block.value.headline}}</h2>
+                        </div>
+                        {{block.value.description}}
+                     </div>
+                  </div>
+                   <!-- end text div -->
+               </div>
+            </div>            
+         </section>
+         {% endif %}
+         {% endfor %}
+         
+         <!-- cta area start -->
+                         
+      
+         <section class="{{cta_infor.section_name }} cta__area blue-bg-10 pt-140 pb-130 p-relative fix z-index-1">
+
+            <div class="cta__shape">
+           
+               <img class="cta-4-shape" src="{% static 'images/cta/cta-shape.png' %}" alt="">
+               <img class="cta-4-shape" src="{{ cta_infor.get_image }}" alt="{{cta_infor.get_image_alt }}">  
+     
+            </div>
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-8 offset-xxl-2">
+                     <div class="cta__content-4 text-center">
+           
+                        {% for block in self.timely_updates %}                       
+                        <div class="section__title-wrapper section__title-wrapper-4 section__title-white text-center mb-45 wow fadeInUp" data-wow-delay=".3s">
+                           <p class="eyebrow">{{block.value.eyebrow}}</p>
+                           <h2 class="section__title section__title-4 wow fadeInUp" data-wow-delay=".3s">{{block.value.headline}}</h2>
+                           <p class="wow fadeInUp" data-wow-delay=".5s">{{block.value.description}}</p>
+                        </div>
+                        {% endfor %}
+                        <div class="subs-div">
+
+                           <div class="cta__form mb-25 wow fadeInUp" data-wow-delay=".7s">
+                              <form action="" id="subscribeForm">
+                                 <input type="email" name="email" id="id_email" placeholder="Enter Your Email">
+                                 <button type="submit">Subscribe</button>
+                              </form>
+                           </div>
+                        </div>
+                        <div class="cta__features">
+                           <ul>
+                              {% for block in self.timely_updates_bullet %}
+                              <li>{{block}}</li>
+                              {% endfor %}                             
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <!-- cta area end -->
+ 
+         <section class="{{datasection.section_name}} why__area grey-bg-5 pt-135 pb-90">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-7 col-xl-8 col-lg-8">
+                     {% for block in self.datasection %}
+                     <p class="eyebrow">{{block.value.eyebrow }}</p>
+                     <div class="why__wrapper">
+                        <div class="section__title-wrapper section__title-wrapper-3 mb-45 wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                           <h2 class="section__title section__title-3">{{block.value.headline}}</h2>
+                           <p>{{block.value.description}}</p>
+                        </div>
+                        {% endfor %}
+                        <div class="why__counter">
+                           <div class="row">                              
+                              {% for block in self.data_card %}
+                                 {% include_block block %}
+                              {% endfor %}
+                             
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xxl-4 offset-xxl-1 col-xl-4 col-lg-4 col-md-6">
+                     <div class="why__features white-bg wow fadeInUp" data-wow-delay=".9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeInUp;">
+                        <ul>
+                           {% for bullet in self.data_bullets %}
+                           <li>{{bullet}}</li>
+                           {% endfor %}
+                        </ul>
+                        <a href="contact.html" class="w-btn w-btn-purple w-100"> contact us</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+     
+
+
+      </main>
+{% endblock %}

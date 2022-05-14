@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+ {% load  static wagtailcore_tags wagtailmetadata_tags  wagtailimages_tags %}
+
+ {% block meta_tag %}
+   {% meta_tags %}
+ {% endblock %}
+
+ {% block content %}
+
+      <main>
+
+        <!-- page title area start -->
+        <section class="page__title-area page__title-height d-flex align-items-center fix p-relative z-index-1" data-background="{% static 'images/page-title/page-title.jpg' %}">
+      
+           <div class="container">
+              <div class="row">
+                 <div class="col-xxl-12">
+                    <div class="page__title-wrapper text-center">
+                       <h3>{{self.title}}</h3>
+                        <nav aria-label="breadcrumb">
+                           <ol class="breadcrumb justify-content-center">
+                              <li class="breadcrumb-item"><a href="index.html">{{self.get_parent.title}}</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">{{self.title}}</li>
+                           </ol>
+                        </nav>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </section>
+        <!-- page title area end -->
+
+   
+     
+         <!-- about area start -->
+         <section class="{{page_object.section_name}} about__area pb-45 pt-45 p-relative">
+            <div class="container">
+               <div class="row align-items-center">
+                  <div class="col-xxl-5 col-xl-6 col-lg-6 col-md-9 order-last order-lg-first">
+                     <div class="about__wrapper about__wrapper-2 mb-20">
+                        <div class="section__title-wrapper mb-25 wow fadeInUp" data-wow-delay=".3s">
+							{% for element in self.section_about %}
+                           <h5>{{ element.value.eyebrow }}</h5>				
+                           <h2 class="section__title">{{ element.value.headline }}</h2>
+                           {{ element.value.description }}
+						   {% endfor %}
+                        </div>
+                       
+                       
+                     </div>
+                  </div>
+                  <div class="col-xxl-6 offset-xxl-1 col-xl-6 col-lg-6 wow fadeInRight" data-wow-delay=".7s">
+                     <div class="about__thumb-wrapper-2 ml-40 p-relative m-img">
+						{% image self.section_about_image scale-50 as img %}
+                        <img src="{{ img.url }}" class="wow fadeInDown" alt="{{ img.alt }}">
+          
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- about area end -->
+        
+
+         
+               <!-- core values area start -->
+         <section class="{{ core_values.section_name }} services__area pt-110 pb-45">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-8 offset-md-2">
+							{% for block in page.core_values %}
+                           <div class="section__title-wrapper section__title-wrapper-4 text-center mb-65 wow fadeInUp" data-wow-delay=".3s">						
+                              <h5>{{ block.value.eyebrow }}</h5>                    
+                              <h2 class="section__title section__title-4 section__title-4-p-2">{{ block.value.headline }}</h2>
+                              <p>{{ block.value.description }}</p>
+                           </div>
+						   {% endfor %}
+                        </div>
+                     </div>
+                     <div class="row">
+                     
+                        {% for block in  self.core_values_cards %}                 
+						{% include_block block %}
+						{% endfor %}
+                  
+                     </div>
+                  </div>
+         </section>
+               <!-- core values area end -->
+
+         <!-- faq area start -->
+      
+		 <section class="{{datasection.section_name}} why__area grey-bg-5 pt-135 pb-90">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-7 col-xl-8 col-lg-8">
+                     {% for block in datasection %}
+                     <p class="eyebrow">{{block.value.eyebrow }}</p>
+                     <div class="why__wrapper">
+                        <div class="section__title-wrapper section__title-wrapper-3 mb-45 wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                           <h2 class="section__title section__title-3">{{block.value.headline}}</h2>
+                           <p>{{block.value.description}}</p>
+                        </div>
+                        {% endfor %}
+                        <div class="why__counter">
+                           <div class="row">                              
+                              {% for block in data_card %}
+                                 {% include_block block %}
+                              {% endfor %}
+                             
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xxl-4 offset-xxl-1 col-xl-4 col-lg-4 col-md-6">
+                     <div class="why__features white-bg wow fadeInUp" data-wow-delay=".9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeInUp;">
+                        <ul>
+                           {% for bullet in data_bullets %}
+                           <li>{{bullet}}</li>
+                           {% endfor %}
+                        </ul>
+                        <a href="contact.html" class="w-btn w-btn-purple w-100"> contact us</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+     
+         {% include 'home/cta-section.html' %}
+
+      </main>
+
+
+
+	  {% endblock %}
+

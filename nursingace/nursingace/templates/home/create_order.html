@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+        {% block content %}
+        
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">{{pagename}}</h4>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="h-100">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                            
+                                            </div>
+                                           
+                                        </div><!-- end card header -->
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-10 mx-auto">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                               <div class="flex-grow-1">
+                                                <form action="" method="post" class="row g-3">
+                                                    {% csrf_token %}
+    
+                                                    <div class="col-md-8">
+                                                     
+                                                        {{form.subject.label }}
+                                                        {{form.subject}}
+                                                        <span>{{form.subject.errors}}</span>
+                                                      </div>
+                                                    <div class="col-md-8">
+                                                        {{form.title.label }}
+                                                        {{form.title}}
+                                                        <span>{{form.title.errors}}</span>
+                                                      </div>
+                                                    <div class="col-md-8 price_val">
+                                                        {{form.study_level.label }}
+                                                        {{form.study_level}}
+                                                        <span>{{form.study_level.errors}}</span>
+                                                      </div>
+                                                    <div class="col-md-8 price_val">
+                                                        {{form.service_category.label }}
+                                                        {{form.service_category}}
+                                                        <span>{{form.service_category.errors}}</span>
+                                                      </div>
+                                                    <div class="col-md-8 price_val">
+                                                        {{form.assignment_type.label }}
+                                                        {{form.assignment_type}}
+                                                        <span>{{form.assignment_type.errors}}</span>
+                                                      </div>
+
+                                                     
+                                                      
+                                                      <div class="col-md-8 price_val">
+                                                        <i class="mdi mdi-calendar deadline_icon"></i>
+                                                        
+                                                          {{form.specific_deadline.label }}
+                                                          {{form.specific_deadline}}
+                                                          <div class="mt-4" id="deadline-headline"></div>
+                                                          <span>{{form.specific_deadline.errors}}</span>
+                                                        </div>
+                                                        <div class="col-md-8 price_val">
+                                                            {{form.turnaround.label }}
+                                                            {{form.turnaround }}
+                                                            
+                                                            <span>{{form.turnaround.errors}}</span>
+                                                          </div>
+                                                        
+                                                        <div class="col-md-8 price_val">
+                                                        {{form.no_of_pages.label }}
+                                                        {{form.no_of_pages}}
+                                                        <span>{{form.no_of_pages.errors}}</span>
+                                                      </div>
+                                                    <div class="col-md-8">
+                                                        {{form.reference_style.label }}
+                                                        {{form.reference_style}}
+                                                        <span>{{form.reference_style.errors}}</span>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        {{form.no_of_references.label }}
+                                                        {{form.no_of_references}}
+                                                        <span>{{form.no_of_references.errors}}</span>
+                                                    </div>
+                                                   
+                                                    <div class="col-md-8">
+                                                        {{form.country.label }}
+                                                        {{form.country}}
+                                                        <span>{{form.country.errors}}</span>
+                                                    </div>
+                                                    <div class="col-md-6 block">
+                                                        {{file_form.file }}
+                                                     
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        {{form.description.label }}
+                                                        {{form.description}}
+                                                        <span>{{form.description.errors}}</span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="currentTotal">
+                                                            <p>$<span class="totalsum">0.00</span></p>
+                                                        </div>
+                                                    </div>
+                                                     
+    
+                                                        <div class="col-12 mt-4">
+                                                            <button type="submit" class="btn btn-primary">Order Now</button>
+                                                        </div>
+                                                
+                                                 
+                                                </form>
+                                         
+                                            </div>
+                                       
+                                        </div><!-- end card header -->
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                        
+
+
+                            </div> <!-- end .h-100-->
+
+                        </div> <!-- end col -->
+
+                    </div>
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            <script>
+                 function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                const csrftoken = getCookie('csrftoken');
+                var priceUrl = "{% url 'products:pricing' %}"
+                var priceVals = Array.from(document.querySelectorAll('.price_val'))
+                var totalSum = document.querySelector('.totalsum')
+                if (priceVals) {
+                    priceVals.forEach(element => {
+                        element.addEventListener('change', ()=>{                            
+                            
+                            var studyLevelValue = document.getElementById('id_study_level').value
+                            var serviceCategoryValue = document.getElementById('id_service_category').value
+                            var assignmentTypeValue = document.getElementById('id_assignment_type').value
+                            var turnaroundValue = document.getElementById('id_turnaround').value
+                            var numpages = document.getElementById('id_no_of_pages').value
+                            if (studyLevelValue && serviceCategoryValue && assignmentTypeValue && turnaroundValue && numpages ||numpages >0 ) {
+                                data ={'study_level':studyLevelValue, 
+                                    'service_category':serviceCategoryValue,
+                                    'assignment_type':assignmentTypeValue,
+                                    'turnaround':turnaroundValue,
+                                    'numpages':numpages,
+                                },
+                                
+                                fetch(priceUrl, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content_type':'application/json',
+                                        'x-CSRFToken':csrftoken,
+                                    },
+                                    body: JSON.stringify(data)
+                                })
+                                .then((response) =>{                                  
+                                    return response.json()
+                                })
+                                .then((data) =>{
+                                   
+                                    if (data) {
+                                        totalSum.innerHTML = data['total']; 
+                                    } else {
+                                        const ajaxUpdatesParent = document.getElementById('ajax-updates')
+                                        const alertContainer = document.createElement('div')
+                                        alertContainer.className = 'alert-container'
+                                        alertContainer.innerHTML = `
+                                       
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>We have not added this category of assignment to our pricing, you may continue to order, but we will invite you for a private price discussion.</strong> 
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>  
+                                        </div>
+                                        </div>                       
+                                        `
+
+                                        ajaxUpdatesParent.appendChild(alertContainer)
+
+                                    }
+                                   
+                                    
+                                    
+                                   
+                                })
+                                .catch((error) => {
+                                    console.error('Error:', error);
+                                    });
+
+                         
+
+
+                            }
+
+
+                            
+
+
+
+
+
+                            
+                        })
+                    });
+                }
+            </script>
+
+        {% endblock %}
